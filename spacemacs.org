@@ -137,9 +137,6 @@ To tangle to the =user-init= file, type =ui=, alternatively =uc= to tangle the =
     ("J" "Journal" entry
      (function org-journal-find-location)
      "* %(format-time-string org-journal-time-format)%^{Title}\n%i%?")))
-
-(with-eval-after-load 'org-projectile
-  (push (org-projectile-project-todo-entry) org-capture-templates))
    #+END_SRC
 *** =org-download=
    #+BEGIN_SRC emacs-lisp :tangle user-config.el
@@ -152,4 +149,14 @@ To tangle to the =user-init= file, type =ui=, alternatively =uc= to tangle the =
    #+END_SRC
 
  
+ 
+*** =org-projectile=
+   #+BEGIN_SRC emacs-lisp :tangle user-config.el
+(require 'org-projectile)
+(setq org-projectile-projects-file
+      "~/Dropbox/org/projects/inbox.org")
+(push (org-projectile-project-todo-entry) org-capture-templates)
+(setq org-agenda-files (append org-agenda-files (org-projectile-todo-files)))
+   #+END_SRC
+
  
