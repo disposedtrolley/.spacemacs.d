@@ -1,0 +1,155 @@
+#+TITLE: Spacemacs config
+#+STARTUP: headlines
+#+STARTUP: nohideblocks
+#+STARTUP: noindent
+#+OPTIONS: toc:4 h:4
+#+PROPERTY: header-args:emacs-lisp :comments link
+
+This is my Spacemacs config written in =org-mode=, based on [[https://github.com/ralesi/spacemacs.org][this repo]].
+
+* Setup
+  1. =git clone git@github.com:disposedtrolley/.spacemacs.d.git ~/.spacemacs.d=
+  2. Restart Spacemacs if open
+  3. The =user-config.el= and =user-init.el= files will be generated automatically from
+     this org file
+
+* Helper Functions
+** Yasnippet creation
+To help with creation of your text blocks, there are two snippets defined in the
+local snippet directory =~/.spacemacs.d/snippets/org-mode/= folder.
+
+To tangle to the =user-init= file, type =ui=, alternatively =uc= to tangle the =user-config= file.
+
+** Find this file
+   Create binding to spacemacs.org file
+#+BEGIN_SRC emacs-lisp :tangle user-config.el
+  (defun spacemacs/find-config-file ()
+    (interactive)
+    (find-file (concat dotspacemacs-directory "/spacemacs.org")))
+
+  (spacemacs/set-leader-keys "fec" 'spacemacs/find-config-file)
+
+#+END_SRC
+
+* Config
+** UI
+*** Fonts
+    - These settings are declared first in =dotspacemacs/init= but replicated here for completeness.
+   #+BEGIN_SRC emacs-lisp :tangle user-config.el
+(setq-default
+  dotspacemacs-default-font '("Source Code Pro"
+                              :size 14.0
+                              :weight normal
+                              :width normal)
+  dotspacemacs-themes '(spacemacs-light
+                        spacemacs-dark))
+   #+END_SRC
+*** Window
+    - Remove window borders and start Emacs in fullscreen.
+   #+BEGIN_SRC emacs-lisp :tangle user-config.el
+"Remove window borders"
+(add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
+(add-to-list 'default-frame-alist '(ns-appearance . dark))
+"Start full screen"
+(add-to-list 'default-frame-alist '(fullscreen . maximized))
+   #+END_SRC
+
+** Projectile 
+  #+BEGIN_SRC emacs-lisp :tangle user-config.el
+  (setq projectile-project-search-path '("~/projects/" "~/Code/"))
+  (spacemacs/set-leader-keys "SPC" 'helm-projectile)
+  #+END_SRC
+
+** Shortcuts
+  #+BEGIN_SRC emacs-lisp :tangle user-config.el
+(global-set-key (kbd "C-x o") 'ace-window)
+  #+END_SRC
+** Source Control
+*** Magit
+   #+BEGIN_SRC emacs-lisp :tangle user-config.el
+(with-eval-after-load 'magit
+  (require 'forge)
+  (require 'github-review)
+
+  (setq github-review-fetch-top-level-and-review-comments t))
+   #+END_SRC
+
+** Languages 
+*** Go
+   #+BEGIN_SRC emacs-lisp :tangle user-config.el
+(setq go-format-before-save t)
+  (setq gofmt-command "goimports")
+  (setq company-transformers nil)
+   #+END_SRC
+
+** org-mode
+*** Directories
+   #+BEGIN_SRC emacs-lisp :tangle user-config.el
+(setq org-directory "~/Dropbox/org/")
+(setq org-agenda-files (list "~/Dropbox/org"))
+
+(setq org-default-notes-file "~/Dropbox/org/dates/2019-oct.org")
+   #+END_SRC
+*** Source Blocks
+#+BEGIN_SRC emacs-lisp :tangle user-config.el
+(require 'org-tempo)
+
+(setq org-src-fontify-natively t
+      org-src-tab-acts-natively t
+      org-confirm-babel-evaluate nil
+      org-edit-src-content-indentation 0)
+(require 'ob-go)
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((ruby . t)
+   (python . t)
+   (js . t)
+   (latex . t)
+   (processing . t)
+   (shell . t)
+   (go .t)))
+#+END_SRC
+*** =org-journal=
+   #+BEGIN_SRC emacs-lisp :tangle user-config.el
+(setq org-journal-dir "~/Dropbox/org/journal/")
+(defun org-journal-find-location ()
+      (org-journal-new-entry t)
+      (goto-char (point-min)))
+   #+END_SRC
+*** =org-capture=
+   #+BEGIN_SRC emacs-lisp :tangle user-config.el
+(setq org-capture-templates
+  '(
+     ("t" "Quick task" entry
+     (file "") 
+     "* TODO %^{Task}\n"
+     :immediate-finish t)
+    ("T" "Task" entry
+     (file "")
+     "* TODO %^{Task}\n")
+    ("n" "Quick note" entry
+     (file "")
+     "* :NOTE: %^{Note}\n"
+     :immediate-finish t)
+    ("N" "Note" entry
+     (file "")
+     "* :NOTE: %^{Note}\n")
+    ("J" "Journal" entry
+     (function org-journal-find-location)
+     "* %(format-time-string org-journal-time-format)%^{Title}\n%i%?")))
+
+(with-eval-after-load 'org-projectile
+  (push (org-projectile-project-todo-entry) org-capture-templates))
+   #+END_SRC
+*** =org-download=
+   #+BEGIN_SRC emacs-lisp :tangle user-config.el
+(require 'org-download)
+(add-hook 'dired-mode-hook 'org-download-enable)
+   #+END_SRC
+*** Inline images
+   #+BEGIN_SRC emacs-lisp :tangle user-config.el
+(setq org-startup-with-inline-images t)
+   #+END_SRC
+
+ 
+ 
