@@ -94,6 +94,8 @@ To tangle to the =user-init= file, type =ui=, alternatively =uc= to tangle the =
 #+BEGIN_SRC emacs-lisp :tangle user-config.el
 (require 'org-tempo)
 
+(setq org-src-tab-acts-natively t)
+
 (setq org-src-fontify-natively t
       org-src-tab-acts-natively t
       org-confirm-babel-evaluate nil
@@ -157,6 +159,14 @@ To tangle to the =user-init= file, type =ui=, alternatively =uc= to tangle the =
       "~/Dropbox/org/projects/inbox.org")
 (push (org-projectile-project-todo-entry) org-capture-templates)
 (setq org-agenda-files (append org-agenda-files (org-projectile-todo-files)))
+   #+END_SRC
+
+ 
+** Text formatting
+*** Auto Fill Mode
+   #+BEGIN_SRC emacs-lisp :tangle user-config.el
+(setq-default fill-column 80)
+(add-hook 'text-mode-hook 'turn-on-auto-fill)
    #+END_SRC
 
  
