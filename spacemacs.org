@@ -37,12 +37,11 @@ To tangle to the =user-init= file, type =ui=, alternatively =uc= to tangle the =
     - These settings are declared first in =dotspacemacs/init= but replicated here for completeness.
    #+BEGIN_SRC emacs-lisp :tangle user-config.el
 (setq-default
-  dotspacemacs-default-font '("Source Code Pro"
-                              :size 14.0
+  dotspacemacs-default-font '("Fantasque Sans Mono"
+                              :size 13.0
                               :weight normal
                               :width normal)
-  dotspacemacs-themes '(spacemacs-light
-                        spacemacs-dark))
+  dotspacemacs-themes '(gruvbox-dark-soft))
    #+END_SRC
 *** Window
     - Remove window borders and start Emacs in fullscreen.
@@ -170,3 +169,18 @@ To tangle to the =user-init= file, type =ui=, alternatively =uc= to tangle the =
    #+END_SRC
 
  
+** =nov.el=
+   #+BEGIN_SRC emacs-lisp :tangle user-config.el
+   (add-to-list 'auto-mode-alist '("\\.epub\\'" . nov-mode))
+
+   (defun my-nov-font-setup ()
+     (face-remap-add-relative 'variable-pitch :family "Liberation Serif"
+                                              :height 1.4))
+   (add-hook 'nov-mode-hook 'my-nov-font-setup)
+
+   (setq nov-text-width 80)
+   (setq nov-text-width t)
+   (setq visual-fill-column-center-text t)
+   (add-hook 'nov-mode-hook 'visual-line-mode)
+   (add-hook 'nov-mode-hook 'visual-fill-column-mode)
+   #+END_SRC
