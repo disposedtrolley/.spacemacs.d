@@ -37,7 +37,7 @@ To tangle to the =user-init= file, type =ui=, alternatively =uc= to tangle the =
     - These settings are declared first in =dotspacemacs/init= but replicated here for completeness.
    #+BEGIN_SRC emacs-lisp :tangle user-config.el
 (setq-default
-  dotspacemacs-default-font '("Fantasque Sans Mono"
+  dotspacemacs-default-font '("Source Code Pro"
                               :size 13.0
                               :weight normal
                               :width normal)
@@ -55,7 +55,7 @@ To tangle to the =user-init= file, type =ui=, alternatively =uc= to tangle the =
 
 ** Projectile 
   #+BEGIN_SRC emacs-lisp :tangle user-config.el
-  (setq projectile-project-search-path '("~/projects/" "~/Code/"))
+  (setq projectile-project-search-path '("~/projects/"))
   (spacemacs/set-leader-keys "SPC" 'helm-projectile)
   #+END_SRC
 
@@ -74,20 +74,24 @@ To tangle to the =user-init= file, type =ui=, alternatively =uc= to tangle the =
    #+END_SRC
 
 ** Languages 
+*** Lisp
+   #+BEGIN_SRC emacs-lisp :tangle user-config.el
+   (global-evil-surround-mode 1)
+   #+END_SRC
 *** Go
    #+BEGIN_SRC emacs-lisp :tangle user-config.el
-(setq go-format-before-save t)
-  (setq gofmt-command "goimports")
-  (setq company-transformers nil)
+   (setq go-format-before-save t)
+   (setq gofmt-command "goimports")
+   (setq company-transformers nil)
    #+END_SRC
 
 ** org-mode
 *** Directories
    #+BEGIN_SRC emacs-lisp :tangle user-config.el
-(setq org-directory "~/Dropbox/org/")
-(setq org-agenda-files (list "~/Dropbox/org"))
+   (setq org-directory "~/Dropbox/org/")
+   (setq org-agenda-files (directory-files-recursively "~/Dropbox/org/" "\.org$"))
 
-(setq org-default-notes-file "~/Dropbox/org/dates/2019-oct.org")
+   (setq org-default-notes-file "~/Dropbox/org/dates/2019-dec.org")
    #+END_SRC
 *** Source Blocks
 #+BEGIN_SRC emacs-lisp :tangle user-config.el
@@ -112,55 +116,52 @@ To tangle to the =user-init= file, type =ui=, alternatively =uc= to tangle the =
 #+END_SRC
 *** =org-journal=
    #+BEGIN_SRC emacs-lisp :tangle user-config.el
-(setq org-journal-dir "~/Dropbox/org/journal/")
-(defun org-journal-find-location ()
-      (org-journal-new-entry t)
-      (goto-char (point-min)))
+   (setq org-journal-dir "~/Dropbox/org/journal/")
+   (defun org-journal-find-location ()
+         (org-journal-new-entry t)
+         (goto-char (point-min)))
    #+END_SRC
 *** =org-capture=
    #+BEGIN_SRC emacs-lisp :tangle user-config.el
-(setq org-capture-templates
-  '(
-     ("t" "Quick task" entry
-     (file "") 
-     "* TODO %^{Task}\n"
-     :immediate-finish t)
-    ("T" "Task" entry
-     (file "")
-     "* TODO %^{Task}\n")
-    ("n" "Quick note" entry
-     (file "")
-     "* :NOTE: %^{Note}\n"
-     :immediate-finish t)
-    ("N" "Note" entry
-     (file "")
-     "* :NOTE: %^{Note}\n")
-    ("J" "Journal" entry
-     (function org-journal-find-location)
-     "* %(format-time-string org-journal-time-format)%^{Title}\n%i%?")))
+   (setq org-capture-templates
+     '(
+        ("t" "Quick task" entry
+        (file "") 
+        "* TODO %^{Task}\n"
+        :immediate-finish t)
+       ("T" "Task" entry
+        (file "")
+        "* TODO %^{Task}\n")
+       ("n" "Quick note" entry
+        (file "")
+        "* :NOTE: %^{Note}\n"
+        :immediate-finish t)
+       ("N" "Note" entry
+        (file "")
+        "* :NOTE: %^{Note}\n")
+       ("J" "Journal" entry
+        (function org-journal-find-location)
+        "* %(format-time-string org-journal-time-format)%^{Title}\n%i%?")))
    #+END_SRC
 *** =org-download=
    #+BEGIN_SRC emacs-lisp :tangle user-config.el
-(require 'org-download)
-(add-hook 'dired-mode-hook 'org-download-enable)
+   (require 'org-download)
+   (add-hook 'dired-mode-hook 'org-download-enable)
    #+END_SRC
 *** Inline images
    #+BEGIN_SRC emacs-lisp :tangle user-config.el
-(setq org-startup-with-inline-images t)
+   (setq org-startup-with-inline-images t)
    #+END_SRC
 
- 
- 
 *** =org-projectile=
    #+BEGIN_SRC emacs-lisp :tangle user-config.el
-(require 'org-projectile)
-(setq org-projectile-projects-file
-      "~/Dropbox/org/projects/inbox.org")
-(push (org-projectile-project-todo-entry) org-capture-templates)
-(setq org-agenda-files (append org-agenda-files (org-projectile-todo-files)))
+   (require 'org-projectile)
+   (setq org-projectile-projects-file
+         "~/Dropbox/org/projects/inbox.org")
+   (push (org-projectile-project-todo-entry) org-capture-templates)
+   (setq org-agenda-files (append org-agenda-files (org-projectile-todo-files)))
    #+END_SRC
 
- 
 ** Text formatting
 *** Auto Fill Mode
    #+BEGIN_SRC emacs-lisp :tangle user-config.el
@@ -168,7 +169,6 @@ To tangle to the =user-init= file, type =ui=, alternatively =uc= to tangle the =
 (add-hook 'text-mode-hook 'turn-on-auto-fill)
    #+END_SRC
 
- 
 ** =nov.el=
    #+BEGIN_SRC emacs-lisp :tangle user-config.el
    (add-to-list 'auto-mode-alist '("\\.epub\\'" . nov-mode))
