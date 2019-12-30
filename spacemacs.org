@@ -52,7 +52,6 @@ To tangle to the =user-init= file, type =ui=, alternatively =uc= to tangle the =
 "Start full screen"
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
    #+END_SRC
-
 ** Projectile 
   #+BEGIN_SRC emacs-lisp :tangle user-config.el
   (setq projectile-project-search-path '("~/projects/"))
@@ -91,7 +90,7 @@ To tangle to the =user-init= file, type =ui=, alternatively =uc= to tangle the =
    (setq org-directory "~/Dropbox/org/")
    (setq org-agenda-files (directory-files-recursively "~/Dropbox/org/" "\.org$"))
 
-   (setq org-default-notes-file "~/Dropbox/org/dates/2019-dec.org")
+   (setq org-default-notes-file "~/Dropbox/org/inbox/2019-dec.org")
    #+END_SRC
 *** Source Blocks
 #+BEGIN_SRC emacs-lisp :tangle user-config.el
@@ -109,10 +108,15 @@ To tangle to the =user-init= file, type =ui=, alternatively =uc= to tangle the =
  '((ruby . t)
    (python . t)
    (js . t)
-   (latex . t)
-   (processing . t)
    (shell . t)
+   (clojure . t)
    (go .t)))
+
+(setq org-babel-clojure-backend 'cider)
+(require 'cider)
+
+(org-defkey org-mode-map "\C-x\C-e" 'cider-eval-last-sexp)
+(org-defkey org-mode-map "\C-c\C-d" 'cider-doc)
 #+END_SRC
 *** =org-journal=
    #+BEGIN_SRC emacs-lisp :tangle user-config.el
@@ -184,3 +188,9 @@ To tangle to the =user-init= file, type =ui=, alternatively =uc= to tangle the =
    (add-hook 'nov-mode-hook 'visual-line-mode)
    (add-hook 'nov-mode-hook 'visual-fill-column-mode)
    #+END_SRC
+*** Refile
+    - Allow all heading levels to be =org-refile= targets
+    #+BEGIN_SRC emacs-lisp :tangle user-config.el
+    (setq org-refile-targets '((org-agenda-files :maxlevel . 3)))
+    #+END_SRC
+
