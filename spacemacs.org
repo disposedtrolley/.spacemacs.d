@@ -84,6 +84,10 @@ To tangle to the =user-init= file, type =ui=, alternatively =uc= to tangle the =
    (setq company-transformers nil)
    #+END_SRC
 
+*** Emacs Lisp
+   #+BEGIN_SRC emacs-lisp :tangle user-config.el
+(add-hook 'emacs-lisp-mode-hook #'smartparens-strict-mode)
+   #+END_SRC
 ** org-mode
 *** Directories
    #+BEGIN_SRC emacs-lisp :tangle user-config.el
