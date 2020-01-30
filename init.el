@@ -91,6 +91,7 @@ This function should only modify configuration layer settings."
                                       ob-go
                                       forge
                                       github-review
+                                      atomic-chrome
                                       nov)
 
    ;; A list of packages that cannot be updated.
