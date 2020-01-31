@@ -204,7 +204,6 @@ To tangle to the =user-init= file, type =ui=, alternatively =uc= to tangle the =
    (atomic-chrome-start-server)
    #+END_SRC
 
-
 ** Debugging
    #+BEGIN_SRC emacs-lisp :tangle user-config.el
    (dap-mode 1)
@@ -220,3 +219,19 @@ To tangle to the =user-init= file, type =ui=, alternatively =uc= to tangle the =
      (lambda (arg) (call-interactively #'dap-hydra)))
    #+END_SRC
 
+** Folding
+   #+BEGIN_SRC emacs-lisp :tangle user-config.el
+   (defun aj-toggle-fold ()
+     "Toggle fold all lines larger than indentation on current line"
+     (interactive)
+     (let ((col 1))
+       (save-excursion
+         (back-to-indentation)
+         (setq col (+ 1 (current-column)))
+         (set-selective-display
+          (if selective-display nil (or col 1))))))
+   (global-set-key [(M C i)] 'aj-toggle-fold)
+
+   (eval-after-load "yaml-mode"
+     (local-unset-key [(M C i)]))
+   #+END_SRC
