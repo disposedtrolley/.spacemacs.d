@@ -204,3 +204,19 @@ To tangle to the =user-init= file, type =ui=, alternatively =uc= to tangle the =
    (atomic-chrome-start-server)
    #+END_SRC
 
+
+** Debugging
+   #+BEGIN_SRC emacs-lisp :tangle user-config.el
+   (dap-mode 1)
+   (dap-ui-mode 1)
+   ;; enables mouse hover support
+   (dap-tooltip-mode 1)
+   ;; use tooltips for mouse hover
+   ;; if it is not enabled `dap-mode' will use the minibuffer.
+   (tooltip-mode 1)
+   (require 'dap-go)
+
+   (add-hook 'dap-stopped-hook
+     (lambda (arg) (call-interactively #'dap-hydra)))
+   #+END_SRC
+
