@@ -45,21 +45,16 @@ This function should only modify configuration layer settings."
      html
      lsp
      (clojure :variables clojure-enable-fancify-symbols t)
-     ;; dap
+     dap
+     sml
      python
      yaml
-     ;; ----------------------------------------------------------------
-     ;; Example of useful layers you may want to use right away.
-     ;; Uncomment some layer names and press `SPC f e R' (Vim style) or
-     ;; `M-m f e R' (Emacs style) to install them.
-     ;; ----------------------------------------------------------------
      auto-completion
      better-defaults
      emacs-lisp
      git
      helm
      markdown
-     ;; ocaml
      multiple-cursors
      (org :variables
           org-projectile-file "~/Dropbox/org/projects/inbox.org")
@@ -70,7 +65,6 @@ This function should only modify configuration layer settings."
      ;; spell-checking
      syntax-checking
      treemacs
-     ;; version-control
      osx
      (go :variables
          go-backend 'go-mode
@@ -217,10 +211,10 @@ It should only modify the values of Spacemacs settings."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press `SPC T n' to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(sanityinc-tomorrow-blue
+   dotspacemacs-themes '(spacemacs-light
+                         sanityinc-tomorrow-blue
                          spacemacs-dark
-                         gruvbox-dark-medium
-                         spacemacs-light)
+                         gruvbox-dark-medium)
 
    ;; Set the theme for the Spaceline. Supported themes are `spacemacs',
    ;; `all-the-icons', `custom', `doom', `vim-powerline' and `vanilla'. The
