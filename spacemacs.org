@@ -114,7 +114,8 @@ To tangle to the =user-init= file, type =ui=, alternatively =uc= to tangle the =
    (js . t)
    (shell . t)
    (clojure . t)
-   (go .t)))
+   (go .t)
+   (C .t)))
 
 (setq org-babel-clojure-backend 'cider)
 (require 'cider)
