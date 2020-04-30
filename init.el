@@ -68,11 +68,9 @@ This function should only modify configuration layer settings."
      osx
      org-roam
      (go :variables
-         go-backend 'go-mode
          go-format-before-save t
          gofmt-command "goimports"
          go-use-test-args "-race -timeout 10s"
-         godoc-at-point-function 'godoc-gogetdoc
          go-use-golangci-lint t))
 
    ;; List of additional packages that will be installed without being
