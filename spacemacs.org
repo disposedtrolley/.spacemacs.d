@@ -94,7 +94,7 @@ To tangle to the =user-init= file, type =ui=, alternatively =uc= to tangle the =
    (setq org-directory "~/Dropbox/org/")
    (setq org-agenda-files (directory-files-recursively "~/Dropbox/org/" "\.org$"))
 
-   (setq org-default-notes-file "~/Dropbox/org/inbox/2020-jan.org")
+   (setq org-default-notes-file "~/Dropbox/org/inbox/2020-may.org")
    #+END_SRC
 *** Source Blocks
 #+BEGIN_SRC emacs-lisp :tangle user-config.el
