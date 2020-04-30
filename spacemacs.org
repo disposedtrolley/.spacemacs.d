@@ -236,3 +236,8 @@ To tangle to the =user-init= file, type =ui=, alternatively =uc= to tangle the =
    (eval-after-load "yaml-mode"
      (local-unset-key [(M C i)]))
    #+END_SRC
+** =org-roam=
+   #+BEGIN_SRC emacs-lisp :tangle user-config.el
+    (setq org-roam-directory "~/Dropbox/org-roam")
+   #+END_SRC
+
