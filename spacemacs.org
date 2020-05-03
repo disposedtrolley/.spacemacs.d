@@ -111,6 +111,7 @@ To tangle to the =user-init= file, type =ui=, alternatively =uc= to tangle the =
  'org-babel-load-languages
  '((ruby . t)
    (python . t)
+   (rust . t)
    (js . t)
    (shell . t)
    (clojure . t)
