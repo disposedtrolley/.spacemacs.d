@@ -44,9 +44,7 @@ This function should only modify configuration layer settings."
      javascript
      html
      lsp
-     (clojure :variables clojure-enable-fancify-symbols t)
      dap
-     sml
      python
      yaml
      auto-completion
