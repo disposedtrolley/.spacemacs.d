@@ -52,6 +52,10 @@ This function should only modify configuration layer settings."
      auto-completion
      better-defaults
      emacs-lisp
+     (c-c++ :variables
+            c-c++-backend 'lsp-clangd
+            c-c++-enable-clang-format-on-save t
+            c-c++-default-mode-for-headers 'c++-mode)
      git
      helm
      markdown
